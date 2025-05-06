@@ -19,7 +19,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @RestController
 @RequestMapping("/api/reports")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
+
 public class ReportController {
 
     private final ReportRepository reportRepository;
