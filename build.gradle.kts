@@ -19,6 +19,8 @@ repositories {
 }
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   runtimeOnly("com.h2database:h2")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")

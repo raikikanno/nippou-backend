@@ -12,19 +12,19 @@ import jakarta.persistence.Id;
 public class Report {
 
     @Id
-    @Schema(description = "ID（UUIDや日時などでユニーク）", example = "1720000000000", required = true)
+    @Schema(description = "ID（UUIDや日時などでユニーク）", example = "1720000000000")
     private String id;
 
-    @Schema(description = "投稿者のユーザーID", example = "user123", required = true)
+    @Schema(description = "投稿者のユーザーID", example = "user123")
     private String userId;
 
-    @Schema(description = "投稿者の名前", example = "山田太郎", required = true)
+    @Schema(description = "投稿者の名前", example = "山田太郎")
     private String userName;
 
-    @Schema(description = "所属チーム", example = "チームA", required = true)
+    @Schema(description = "所属チーム", example = "チームA")
     private String team;
 
-    @Schema(description = "投稿日（yyyy-MM-dd）", example = "2025-04-25", required = true)
+    @Schema(description = "投稿日（yyyy-MM-dd）", example = "2025-04-25")
     private String date;
 
     @ElementCollection
