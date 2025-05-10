@@ -17,7 +17,8 @@ import com.example.nippou.repository.UserRepository;
 import com.example.nippou.service.MailService;
 
 import jakarta.mail.MessagingException;
-@CrossOrigin(origins = "http://localhost:3000") 
+
+@CrossOrigin(origins = "*")
 
 @RestController
 @RequestMapping("/api/auth")
