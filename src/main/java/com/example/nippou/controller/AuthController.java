@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import com.example.nippou.repository.UserRepository;
 import com.example.nippou.service.MailService;
 
 import jakarta.mail.MessagingException;
+@CrossOrigin(origins = "http://localhost:3000") 
 
 @RestController
 @RequestMapping("/api/auth")
