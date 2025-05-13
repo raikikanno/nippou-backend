@@ -55,7 +55,9 @@ public class AuthController {
         userRepository.save(user);
 
         String verifyLink = baseUrl + "/api/auth/verify?token=" + verificationToken;
+        System.out.println("📨 送信前: " + verifyLink); // ここでRenderログに出力される
         mailService.sendEmail(user.getEmail(), "メール認証", "以下のリンクをクリックして認証を完了してください:\n" + verifyLink);
+        System.out.println("✅ 送信成功");
 
         return "認証メールを送信しました";
     }
