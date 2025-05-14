@@ -66,7 +66,7 @@ public class AuthController {
         return "認証メールを送信しました";
     }
 
-    public record RegisterRequest(String email, String password) {
+    public record RegisterRequest(String email, String password, String name, String team) {
 
     }
 
