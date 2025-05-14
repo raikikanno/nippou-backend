@@ -1,8 +1,12 @@
 package com.example.nippou.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,6 +83,31 @@ public class AuthController {
         userRepository.save(user);
 
         return "認証が完了しました。ログインしてください。";
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody RegisterRequest request) {
+        var userOpt = userRepository.findByEmail(request.email());
+
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("メールアドレスが間違っています");
+        }
+
+        User user = userOpt.get();
+        if (!passwordEncoder.matches(request.password(), user.getPasswordHash())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("パスワードが間違っています");
+        }
+
+        if (!user.isVerified()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("メールアドレスが未認証です");
+        }
+
+        Map<String, String> response = new HashMap<>();
+        response.put("id", user.getId());
+        response.put("name", user.getEmail()); // 仮
+        response.put("team", "チームA");        // 仮
+
+        return ResponseEntity.ok(response);
     }
 
 }
