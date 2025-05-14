@@ -2,6 +2,7 @@ package com.example.nippou.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -86,28 +87,31 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody RegisterRequest request) {
-        var userOpt = userRepository.findByEmail(request.email());
-
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        Optional<User> userOpt = userRepository.findByEmail(request.email());
         if (userOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("メールアドレスが間違っています");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("メールアドレスまたはパスワードが違います");
         }
 
         User user = userOpt.get();
         if (!passwordEncoder.matches(request.password(), user.getPasswordHash())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("パスワードが間違っています");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("メールアドレスまたはパスワードが違います");
         }
 
         if (!user.isVerified()) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("メールアドレスが未認証です");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("メール認証が完了していません");
         }
 
         Map<String, String> response = new HashMap<>();
         response.put("id", user.getId());
-        response.put("name", user.getEmail()); // 仮
-        response.put("team", "チームA");        // 仮
+        response.put("name", user.getName());
+        response.put("team", user.getTeam());
 
         return ResponseEntity.ok(response);
+    }
+
+    public record LoginRequest(String email, String password) {
+
     }
 
 }
