@@ -193,7 +193,7 @@ public class AuthController {
         user.setResetPasswordToken(resetToken); // ★Userエンティティに追加が必要
         userRepository.save(user);
 
-        String resetLink = baseUrl + "/reset-password?token=" + resetToken;
+        String resetLink = "http://localhost:3000" + "/reset-password?token=" + resetToken;
         mailService.sendEmail(user.getEmail(), "パスワード再設定", "以下のリンクから新しいパスワードを設定してください:\n" + resetLink);
 
         return ResponseEntity.ok("パスワード再設定メールを送信しました");
