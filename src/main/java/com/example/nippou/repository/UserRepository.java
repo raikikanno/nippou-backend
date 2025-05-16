@@ -9,4 +9,6 @@ import com.example.nippou.model.User;
 public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByEmail(String email);
     Optional<User> findByVerificationToken(String token);
+    Optional<User> findByResetPasswordToken(String resetPasswordToken);
+
 }

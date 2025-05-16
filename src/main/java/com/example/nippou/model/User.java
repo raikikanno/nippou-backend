@@ -85,5 +85,15 @@ public class User {
     public void setVerificationToken(String verificationToken) {
         this.verificationToken = verificationToken;
     }
+    
+    private String resetPasswordToken;
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
 
 }
