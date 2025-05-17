@@ -190,8 +190,9 @@ public class AuthController {
         User user = userOpt.get();
         String resetToken = UUID.randomUUID().toString();
 
-        user.setResetPasswordToken(resetToken); // ★Userエンティティに追加が必要
+        user.setResetPasswordToken(resetToken);
         userRepository.save(user);
+        System.out.println("★ resetToken = " + resetToken);
 
         String resetLink = "http://localhost:3000" + "/reset-password?token=" + resetToken;
         mailService.sendEmail(user.getEmail(), "パスワード再設定", "以下のリンクから新しいパスワードを設定してください:\n" + resetLink);
@@ -202,6 +203,7 @@ public class AuthController {
     @GetMapping("/verify-reset-token")
     public ResponseEntity<?> verifyResetToken(@RequestParam String token) {
         Optional<User> userOpt = userRepository.findByResetPasswordToken(token);
+        System.out.println("★ 受け取った token = " + token);
 
         if (userOpt.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無効なトークンです");
