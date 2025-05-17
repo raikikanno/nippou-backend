@@ -85,7 +85,7 @@ public class User {
     public void setVerificationToken(String verificationToken) {
         this.verificationToken = verificationToken;
     }
-    
+    @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
     public String getResetPasswordToken() {
