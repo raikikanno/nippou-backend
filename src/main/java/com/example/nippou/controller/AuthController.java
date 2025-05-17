@@ -202,10 +202,11 @@ public class AuthController {
 
     @GetMapping("/verify-reset-token")
     public ResponseEntity<?> verifyResetToken(@RequestParam String token) {
+        System.out.println("🔎 reset token = " + token);
         Optional<User> userOpt = userRepository.findByResetPasswordToken(token);
-        System.out.println("★ 受け取った token = " + token);
 
         if (userOpt.isEmpty()) {
+            System.out.println("❌ ユーザーが見つかりませんでした");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無効なトークンです");
         }
 
