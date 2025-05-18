@@ -136,6 +136,8 @@ public class AuthController {
 
     @GetMapping("/me")
     public ResponseEntity<?> getMe(@CookieValue(name = "auth_token", required = false) String token) {
+            System.out.println("🍪 Cookie received: " + token);
+
         if (token == null || token.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("未ログインです");
         }

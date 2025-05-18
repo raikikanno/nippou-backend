@@ -8,6 +8,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "\"user\"")
 public class User {
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
 
     @Id
     private String id;
@@ -85,8 +87,6 @@ public class User {
     public void setVerificationToken(String verificationToken) {
         this.verificationToken = verificationToken;
     }
-    @Column(name = "reset_password_token")
-    private String resetPasswordToken;
 
     public String getResetPasswordToken() {
         return resetPasswordToken;
